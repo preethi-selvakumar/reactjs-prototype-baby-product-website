@@ -191,6 +191,32 @@ export const AppProvider = ({ children }) => {
         alert("You have been logged out successfully!");
     };
 
+    // Check for missing localStorage data on app load
+    useEffect(() => {
+        const storedAuth = localStorage.getItem(AUTH_STORAGE_KEY);
+
+        // if no auth data → force registration prompt
+        if (!storedAuth) {
+            alert("Please register before using the app.");
+            openRegisterModal();
+            setUserAuth(initialUserState);
+        } else {
+            try {
+                const parsed = JSON.parse(storedAuth);
+                if (!parsed.registeredEmail) {
+                    alert("Please register before using the app.");
+                    openRegisterModal();
+                    setUserAuth(initialUserState);
+                }
+            } catch (error) {
+                console.error("Corrupted auth data found, resetting:", error);
+                alert("Please register before using the app.");
+                openRegisterModal();
+                localStorage.removeItem(AUTH_STORAGE_KEY);
+                setUserAuth(initialUserState);
+            }
+        }
+    }, []); // run only once when app loads
 
     const contextValue = {
         // cart values

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-// === 💡 IMAGE IMPORTS: Change these paths to your actual image locations 💡 ===
 import boysFashionImg from '../assets/images/boys-fashion.jpg';
 import girlsFashionImg from '../assets/images/girls-fashion.jpg';
 import footwearImg from '../assets/images/sandal.png';
